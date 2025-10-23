@@ -23,11 +23,11 @@ interface Tour {
 const tours: Tour[] = [
   {
     id: 1,
-    title: 'Байкал: Легенды и природа',
-    description: 'Незабываемое путешествие по самому глубокому озеру планеты. Вы увидите уникальные пейзажи и услышите древние легенды.',
-    duration: '2 дня',
+    title: 'Экскурсия Топ',
+    description: 'Насыщенный день по Красноярску и Дивногорску за 8 часов',
+    duration: '8 часов',
     price: '15 000 ₽',
-    image: 'https://cdn.poehali.dev/projects/96a3b66c-092f-4aff-8ac2-9833904970e9/files/328b6dd6-fb12-435f-ad02-ea5cb8b6a6f8.jpg',
+    image: 'https://cdn.poehali.dev/files/00e1cd61-4e92-44ba-9978-73b946a80ff5.jpg',
     category: 'Природа'
   },
   {
