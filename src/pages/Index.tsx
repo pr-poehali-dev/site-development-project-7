@@ -118,11 +118,11 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-5xl md:text-6xl font-bold text-secondary mb-6 leading-tight">
-                Откройте для себя Сибирь
+                Откройте для себя Красноярск
               </h1>
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Незабываемые экскурсии по самым красивым местам Сибири. 
-                Профессиональные гиды, комфортабельный транспорт и море впечатлений.
+                Незабываемые индивидуальные экскурсии по самым красивым местам Красноярска и его природным объектам. 
+                Профессиональный гид с многолетним стажем, комфортный трансфер и море впечатлений.
               </p>
               <div className="flex gap-4">
                 <Button size="lg" onClick={() => scrollToSection('tours')} className="text-lg px-8">
