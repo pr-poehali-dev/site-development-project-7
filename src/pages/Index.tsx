@@ -203,14 +203,14 @@ export default function Index() {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter className="flex gap-2">
+                <CardFooter className="flex flex-col gap-2">
                   {tour.fullDescription && (
                     <Dialog open={isDetailsOpen && selectedTour?.id === tour.id} onOpenChange={(open) => {
                       setIsDetailsOpen(open);
                       if (open) setSelectedTour(tour);
                     }}>
                       <DialogTrigger asChild>
-                        <Button variant="outline" className="flex-1" size="lg">
+                        <Button variant="outline" className="w-full" size="lg">
                           <Icon name="Info" className="mr-2" size={18} />
                           Подробнее
                         </Button>
@@ -231,7 +231,7 @@ export default function Index() {
                     if (open) setSelectedTour(tour);
                   }}>
                     <DialogTrigger asChild>
-                      <Button className={tour.fullDescription ? "flex-1" : "w-full"} size="lg">
+                      <Button className="w-full" size="lg">
                         <Icon name="Calendar" className="mr-2" size={18} />
                         Забронировать
                       </Button>
