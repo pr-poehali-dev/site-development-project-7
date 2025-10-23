@@ -18,6 +18,7 @@ interface Tour {
   price: string;
   image: string;
   category: string;
+  fullDescription?: string;
 }
 
 const tours: Tour[] = [
@@ -25,10 +26,31 @@ const tours: Tour[] = [
     id: 1,
     title: 'Экскурсия Топ',
     description: 'Насыщенный день по Красноярску и Дивногорску за 8 часов',
-    duration: '8 часов',
-    price: '15 000 ₽',
+    duration: '8-9 часов',
+    price: '14 000 ₽',
     image: 'https://cdn.poehali.dev/files/00e1cd61-4e92-44ba-9978-73b946a80ff5.jpg',
-    category: 'Природа'
+    category: 'Природа',
+    fullDescription: `1) Вначале мы посетим главный символ Красноярска - Часовню Параскевы Пятницы, откуда открывается шикарный вид на исторический центр. Я покажу, откуда начинался город. Эта часовня изображена на десятирублёвой купюре.
+
+2) Далее мы отправимся на Николаевскую сопку. Именно там находится один из самых высоких флагштоков в России. А ещё мы увидим Красноярск с высоты птичьего полёта!
+
+3) Теперь наш путь лежит на правобережье. Едем на Восточный вход Красноярских столбов. Мы посетим Сиенитовый карьер с красивым видом на скальный массив Такмак, а ещё я расскажу про Красноярские Столбы и Столбистов. Там будет возможность немного перекусить, попробовать из живого источника вкуснейшую и полезную воду, а в визит-центре вы сможете отправить открытку домой.
+
+4) Вторая часть нашей экскурсии - Дивногорье. Едем в сторону Дивногорска и заезжаем на шикарную смотровую площадку "Царь рыба" с великолепным видом на Енисей и Карауленское нагорье.
+
+5) Заезжаем в Овсянку - родину нашего писателя В. П. Астафьева. Проедем мимо национального центра и посетим набережную, откуда нам откроется потрясающий вид на скалы Караульного быка.
+
+6) Далее отправимся в Дивногорск - город гидростроителей. По дороге остановимся у берега Енисея с видом на скалу "Монах". Вы узнаете трогательную легенду о монахе и его возлюбленной.
+
+7) Едем на самую красивую набережную Красноярского края, которая находится в Дивногорске. Тут мы сможем спуститься к Енисею, ощутить его прохладную воду и, конечно же, покормить целую армию уток с шикарными видами на дивные скалы. Далее будет кафе, где можно будет покушать.
+
+8) Отправляемся на Красноярскую ГЭС, увидим плотину с нижней смотровой площадки. Узнаете, как строилась станция и для чего её возводили!
+
+9) Теперь увидим ГЭС с верхнего бьефа, ощутим всю мощь плотины и сделаем фотографии с десятирублёвой купюрой. Частично откроется Красноярское море. А ещё посмотрим на единственный в России судоподъёмник, расскажу принцип его работы.
+
+Далее, в обратном направлении, едем в Красноярск. По дороге, при желании, я завезу вас в рыбные магазины, где можно будет приобрести вкуснейшую енисейскую рыбу!
+
+Такая экскурсия займёт по времени примерно 8-9 часов (с подъёмом на Торгашинскую лестницу). Стоимость 14000 руб. за экскурсию до 4-х человек. Заберу вас из гостиницы и привезу обратно в пределах Красноярска.`
   },
   {
     id: 2,
@@ -75,6 +97,7 @@ export default function Index() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { toast } = useToast();
 
   const handleBooking = (e: React.FormEvent) => {
@@ -180,13 +203,35 @@ export default function Index() {
                     </div>
                   </div>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="flex gap-2">
+                  {tour.fullDescription && (
+                    <Dialog open={isDetailsOpen && selectedTour?.id === tour.id} onOpenChange={(open) => {
+                      setIsDetailsOpen(open);
+                      if (open) setSelectedTour(tour);
+                    }}>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="flex-1" size="lg">
+                          <Icon name="Info" className="mr-2" size={18} />
+                          Подробнее
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle>{tour.title}</DialogTitle>
+                          <DialogDescription>Подробная программа экскурсии</DialogDescription>
+                        </DialogHeader>
+                        <div className="prose prose-sm max-w-none">
+                          <p className="whitespace-pre-line text-gray-700 leading-relaxed">{tour.fullDescription}</p>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
                   <Dialog open={isBookingOpen && selectedTour?.id === tour.id} onOpenChange={(open) => {
                     setIsBookingOpen(open);
                     if (open) setSelectedTour(tour);
                   }}>
                     <DialogTrigger asChild>
-                      <Button className="w-full" size="lg">
+                      <Button className={tour.fullDescription ? "flex-1" : "w-full"} size="lg">
                         <Icon name="Calendar" className="mr-2" size={18} />
                         Забронировать
                       </Button>
